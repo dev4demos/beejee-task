@@ -1,0 +1,75 @@
+{layout '/app.latte'}
+
+{block title} {$_title ?: 'Application title'} {/block}
+
+{block content}    
+    <div class="row">
+        <div class="col-sm">
+            <form class="form-inline my-2 my-lg-0" method="POST" action="/">
+                <div class="input-group mb-3">
+                    <select class="form-control form-control-sm" name="sortBy">
+                        {foreach ['username', 'email', 'task_status'] as $val}
+                            <option value="{$val}" {if $request->input('sortBy') == $val } selected="selected" {/if} > 
+                            {$app->trans($val)} 
+                            </option>
+                        {/foreach}
+                    </select>
+                    <select class="form-control form-control-sm" name="sortOrder">
+                        {foreach ['descending', 'ascending'] as $val}
+                            <option value="{$val}" {if $request->input('sortOrder') == $val } selected="selected" {/if} > 
+                            {$app->trans($val)} 
+                            </option>
+                        {/foreach}
+                    </select>
+                    <span>&nbsp;&nbsp;</span>
+                    <div class="input-group-append">
+                        <button class="btn btn-dark btn-sm">{$app->trans('Sort')}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-primary float-right" href="/tasks/create">{$app->trans('Create task')}</a>
+        </div>&nbsp;
+    </div>
+    <!-- list -->
+    <div>
+        {foreach $items as $item}
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge badge-primary badge-pill">{$item->getKey()}</span>
+                    <span class="card-title">{$item->task_text}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal-md">
+
+                        {if $app['user']}
+                        <li class="list-group-item">
+                            <a class="btn btn-info btn-sm" href="/tasks/create?id={$item->id}">{$app->trans('Edit task')}</a>
+                        </li>
+                        {/if}
+
+                        <li class="list-group-item"><strong>{$app->trans('username')}:</strong></li>
+                        <li class="list-group-item">{$item->username}</li>
+                        <li class="list-group-item"><strong>{$app->trans('task_status')}:</strong></li>
+                        {if $item->task_status == 'complete'}
+                            <li class="list-group-item">
+                                <span class="btn btn-success btn-sm"> {$app->trans($item->task_status)} </span>
+                            </li>
+                        {else}
+                            <li class="list-group-item">{$app->trans($item->task_status)}</li>
+                        {/if}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{$app->trans('Last updated by')}&nbsp;<strong>{$item->updated_by}</strong></small>
+                </div>
+            </div>
+            <br>
+        {/foreach}
+    </div>
+    <!-- pager -->
+    <nav aria-label="...">
+        {$items->render(new \App\Pagination\BootstrapFourPresenter($items))|noescape}
+    </nav>
+{/block}

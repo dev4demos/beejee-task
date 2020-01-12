@@ -1,0 +1,38 @@
+{layout '/app.latte'}
+
+{block title} {$_title ?: 'Login'} {/block}
+
+{block content}	 
+    <!-- detai -->
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{$app->trans('Login Info')}</h5>
+                </div>
+                <div class="card-body">
+                    <form action="login" method="POST">
+                        {include '/_hidden.latte'}
+
+                        <label for="username">{$app->trans('Username')}</label>
+                        <input type="text" name="username" class="form-control" id="username" aria-describedby="username-help"
+                        value="{isset($username) ? $username : $session->getOldInput('username')}">
+
+                        {* <div class="form-group">
+                            <label for="email"> {$app->trans('Email address')} </label>
+                            <input type="email" name="email" class="form-control" id="email" aria-describedby="email-help"
+                            value="{isset($email) ? $email : $session->getOldInput('email')}">
+                        </div> *}
+                        <div class="form-group">
+                            <label for="password"> {$app->trans('Password')} </label>
+                            <input type="password" class="form-control" id="password" name="password">
+                       </div>
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary"> {$app->trans('Log in')} </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

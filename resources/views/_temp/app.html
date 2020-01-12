@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="/">Beejee</a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Tasks <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Users</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" method="POST">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account (English)
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/login">Login</a>
+                            <a class="dropdown-item" href="/register">Register</a>
+                            <div class="dropdown-divider"></div>
+                            <span><strong>Language</strong></span>
+                            <button class="dropdown-item active" type="submit" name="lang" value="en">English</button>
+                            <button class="dropdown-item" type="submit" name="lang" value="ru">Russian</button>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+            <!-- <form class="form-inline mt-2 mt-md-0" method="POST">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+        </div>
+    </nav>
+    <div class="alert">
+        <div class="row">
+            <div class="col-sm">
+                <form class="form-inline my-2 my-lg-0" method="POST" action="/">
+                    <div class="input-group mb-3">
+                        <select class="form-control form-control-sm" name="sortBy">
+                            {foreach ['username', 'email', 'task_status'] as $sortby}
+                            <option value="{$sortby}"> {$app->trans($sortby)} </option>
+                            {/foreach}
+                            <option>username</option>
+                            <option>status</option>
+                            <option>email</option>
+                        </select>
+                        <select class="form-control form-control-sm" name="sortOrder">
+                            <option>ascending</option>
+                            <option>descending</option>
+                        </select>
+                        <span>&nbsp;&nbsp;</span>
+                        <div class="input-group-append">
+                            <button class="btn btn-dark btn-sm">sort</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm">
+                <a class="btn btn-primary float-right" href="/users">Add new Task</a>
+            </div>&nbsp;
+        </div>
+        <!-- list -->
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <!-- <br>
+                <div class="card">
+                    <form class="card-body">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ascending" id="ascending">
+                                <label class="form-check-label" for="ascending"> ascending order</label>
+                            </div>
+                            <select class="form-control form-control-sm" id="sortBy" name="sortBy">
+                                <option>username</option>
+                                <option>email</option>
+                                <option>task status</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <hr> -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="badge badge-primary badge-pill">10</span>
+                            <span class="card-title">Simple task title 1</span>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-horizontal-md">
+                                <li class="list-group-item"><strong>username:</strong></li>
+                                <li class="list-group-item">Drake</li>
+                                <li class="list-group-item"><strong>status:</strong></li>
+                                <li class="list-group-item">incomplete</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated by admin</small>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <!-- <div class="card-header">
+                        <form>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ascending" id="ascending">
+                                    <label class="form-check-label" for="ascending"> ascending order</label>
+                                </div>
+                                <label for="sortBy">Example select</label>
+                                <select class="form-control form-control-sm" id="sortBy" name="sortBy">
+                                    <option>username</option>
+                                    <option>email</option>
+                                    <option>task status</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div> -->
+                        <div class="card-header">
+                            <span class="badge badge-primary badge-pill">12</span>
+                            <!-- <a href="#" class="card-link">task title 1</a> -->
+                            <span class="card-title">task title 1</span>
+                            <!-- <ul class="nav nav-pills card-header-pills float-right">
+                            <li class="nav-item">
+                                <a class="nav-link btn-danger" href="#">Delete</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Edit</a>
+                            </li>
+                        </ul> -->
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-horizontal-md">
+                                <li class="list-group-item"><strong>username:</strong></li>
+                                <li class="list-group-item">Dapibus ganger</li>
+                                <li class="list-group-item"><strong>status:</strong></li>
+                                <li class="list-group-item">incomplete</li>
+                            </ul>
+                            <!-- <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Cras justo odio
+                                <span class="badge badge-primary badge-pill">14</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Dapibus ac facilisis in
+                                <span class="badge badge-primary badge-pill">2</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Morbi leo risus
+                                <span class="badge badge-primary badge-pill">1</span>
+                            </li>
+                        </ul> -->
+                            <!-- <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">task status</span>
+                            </div>
+                            <!-- <input type="text" class="form-control" value="complete"> -->
+                            <!-- <a href="#" class="card-link">complete</a> -->
+                        </div>
+                        <!-- <a href="#" class="card-link">delete</a> -->
+                        <!-- <a href="#" class="card-link">edit</a> -->
+                        <!-- <a href="#" class="btn btn-primary">Edit</a> -->
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated by admin</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- pager -->
+        <div class="row">
+            <div class="col-sm">
+                <nav aria-label="...">
+                    <br>
+                    <ul class="pagination float-right">
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
+                            <span class="page-link">
+                                2 <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- detai -->
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Task Detail</h5>
+                    </div>
+                    <div class="card-body">
+                        <datalist id="username-list">
+                            <option value="jane">
+                            <option value="ray">
+                        </datalist>
+                        <form action="store" method="POST">
+                            <input type="hidden" name="_method" value="POST">
+                            <div class="form-group">
+                                <label for="username">User name</label>
+                                <input type="text" name="username" class="form-control" id="username" list="username-list" aria-describedby="username-help">
+                                <small id="username-help" class="form-text text-muted">We'll never share your username with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="example">Email address</label>
+                                <input type="email" name="email" class="form-control" id="example" list="email-list" aria-describedby="email-help">
+                                <small id="email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="task_text">Task text</label>
+                                <textarea name="task_text" class="form-control" id="task_text" rows="2" aria-describedby="task_text-help"></textarea>
+                                <small id="task_text-help" class="form-text text-muted">Task text is required.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="task_status">Task status</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option value="incomplete">incomplete</option>
+                                    <option value="reviewing" selected="selected">reviewing</option>
+                                    <option value="complete">complete</option>
+                                </select>
+                            </div>
+                            <div class="float-left">
+                                <a class="btn btn-danger" href="/tasks/destroy">Delete</a>
+                                <button type="reset" class="btn btn-warning">Reset Changes</button>
+                            </div>
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert">
+        <p class="text-center">
+            &copy; 2020
+        </p>
+    </div>
+    <!-- end -->
+    <div>
+        <div class="my-3 p-3 bg-white rounded box-shadow">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
+            <div class="media text-muted pt-3">
+                <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16f968d7a30%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16f968d7a30%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.166666746139526%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Full Name</strong>
+                        <a href="#">Follow</a>
+                    </div>
+                    <span class="d-block">@username</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-3">
+                <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16f968d7a32%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16f968d7a32%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.166666746139526%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Full Name</strong>
+                        <a href="#">Follow</a>
+                    </div>
+                    <span class="d-block">@username</span>
+                </div>
+            </div>
+            <div class="media text-muted pt-3">
+                <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16f968d7a34%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16f968d7a34%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.166666746139526%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-gray-dark">Full Name</strong>
+                        <a href="#">Follow</a>
+                    </div>
+                    <span class="d-block">@username</span>
+                </div>
+            </div>
+            <small class="d-block text-right mt-3">
+                <a href="#">All suggestions</a>
+            </small>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <!-- <div class="col-sm">100% wide until small breakpoint</div> -->
+        <div class="col-sm">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Beejee</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/tasks">Tasks <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li> -->
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" method="POST">
+                        <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+                        <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+                        <!-- lang menu -->
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Account (English)
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/login">Login</a>
+                                    <a class="dropdown-item" href="/register">Register</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Language</a>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item active" type="submit" name="lang" value="en">English</button>
+                                    <button class="dropdown-item" type="submit" name="lang" value="ru">Russian</button>
+                                </div>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="/logout" tabindex="-1" aria-disabled="true">Logout</a>
+                            </li> -->
+                        </ul>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    </div>
+    <!-- <div id="content">
+        <p>Lorem Gypsum...</p>
+    </div> -->
+    <h1>components</h1>
+    <div>
+        <div class="alert alert-primary" role="alert">
+            A simple primary alert—check it out!
+        </div>
+        <div class="alert alert-secondary" role="alert">
+            A simple secondary alert—check it out!
+        </div>
+        <div class="alert alert-success" role="alert">
+            A simple success alert—check it out!
+        </div>
+        <div class="alert alert-danger" role="alert" n:ifcontent>{$_errors}>
+            A simple danger alert—check it out!
+        </div>
+        <div class="alert alert-warning" role="alert">
+            A simple warning alert—check it out!
+        </div>
+        <div class="alert alert-info" role="alert">
+            A simple info alert—check it out!
+        </div>
+        <div class="alert alert-light" role="alert">
+            A simple light alert—check it out!
+        </div>
+        <div class="alert alert-dark" role="alert">
+            A simple dark alert—check it out!
+        </div>
+    </div>
+    <form action="/tasks" method="POST">
+        <div class="form-group">
+            <label for="taskText-input">Example textarea</label>
+            <textarea name="taskText" class="form-control" id="taskText-input" rows="3" aria-describedby="taskText-help"></textarea>
+            <small id="taskText-help" class="form-text text-muted">Task text is required.</small>
+        </div>
+        <div class="form-group">
+            <label for="username-input">User name</label>
+            <input type="text" name="username" class="form-control" id="username-input" aria-describedby="username-help">
+            <small id="username-help" class="form-text text-muted">We'll never share your username with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" name="taskStatus" class="form-check-input" id="taskStatus-input">
+            <label class="form-check-label" for="taskStatus-input">Task Status</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>

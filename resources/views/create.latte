@@ -1,0 +1,75 @@
+{layout '/app.latte'}
+
+{block title} {$_title ?: 'Application title'} {/block}
+
+{block content}	 
+    <!-- detai -->
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{$app->trans('Task Detail')}</h5>
+                </div>
+                <div class="card-body">
+                    <datalist id="username-list">
+                        {foreach $_usernameList as $val}
+                            <option value="{$val}">{$val}</option>
+                        {/foreach}
+                    </datalist>
+                    <form action="store" method="POST">
+                        {include '/_hidden.latte'}
+                        
+                        <div class="form-group">
+                            <label for="username">{$app->trans('Username')}</label>
+                            <input type="text" name="username" class="form-control" id="username" list="username-list" aria-describedby="username-help"
+                            value="{isset($username) ? $username : $session->getOldInput('username')}">
+                            {* {ifset $username} value="$username" {/ifset} > *}
+                            {ifset $_errors['username']}
+                                <small id="username-help" class="form-text text-muted"> {$_errors['username']} </small>
+                            {/ifset}
+                        </div>
+                        <div class="form-group">
+                            <label for="example"> {$app->trans('Email address')} </label>
+                            <input type="email" name="email" class="form-control" id="example" aria-describedby="email-help"
+                            value="{isset($email) ? $email : $session->getOldInput('email')}">
+                            {* <small id="email-help" class="form-text text-muted">We'll never share your email with anyone else.</small> *}
+                        </div>
+                        <div class="form-group">
+                            <label for="task_text"> {$app->trans('Task text')} </label>
+                            <textarea name="task_text" class="form-control" id="task_text" rows="2" aria-describedby="task_text-help">{isset($task_text) ? $task_text : $session->getOldInput('task_text')} </textarea>
+                            {* <small id="task_text-help" class="form-text text-muted">Task text is required.</small> *}
+                        </div>
+
+                        {if $session->get('_login')}
+                            <div class="form-group">
+                                <label for="task_status"> {$app->trans('Task status')} </label>
+                                <select class="form-control" name="task_status" id="task_status">
+                                    {foreach $_task_statusList as $val}
+                                        <option value="{$val}" 
+                                        {if (empty($task_status) ? $session->getOldInput('task_status') : $task_status) === $val } selected="selected" {/if}> 
+                                        {$app->trans($val)} 
+                                        </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        {/if}
+                        
+                        <div class="float-left">
+                            {if $session->get('_login')}
+                                {ifset $id} 
+                                    <a class="btn btn-danger" href="/tasks/destroy?id={$id}"> {$app->trans('Delete')} </a>
+                                {/ifset} 
+                            {/if}                         
+
+                            <button type="reset" class="btn btn-warning"> {$app->trans('Reset Changes')} </button>
+                            <a class="btn btn-light" href="/"> {$app->trans('Cancel')} </a>
+                        </div>
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary"> {$app->trans('Save')} </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

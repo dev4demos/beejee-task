@@ -1,0 +1,29 @@
+{layout '../app.latte'}
+
+{block title} {$_title ?: 'Application title'} {/block}
+
+{block content}
+	 <h1>{$_title}</h1>
+
+    <form action="/tasks/update" method="POST">
+        {include '../messages.latte'}
+
+        <div class="form-group">
+            <label for="username-input">User name</label>
+            <input type="text" name="username" value="{$username}" class="form-control" id="username-input" aria-describedby="username-help">
+            <small id="username-help" class="form-text text-muted">We'll never share your username with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="task_text-input">Task Text</label>
+            <textarea name="task_text" class="form-control" id="task_text-input" rows="3" aria-describedby="taskText-help">
+                {$task_text}
+            </textarea>
+            <small id="task_text-help" class="form-text text-muted">Task text is required.</small>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" name="task_status" class="form-check-input" id="task_status-input">
+            <label class="form-check-label" for="task_status-input">Task Status</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{/block}

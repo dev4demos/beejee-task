@@ -1,0 +1,33 @@
+{
+    "name": "drnkwati/repack-translation",
+    "description": "PHP 5.3 Translation package.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        },
+        {
+            "name": "Divine Nkwati",
+            "email": "drnkwati@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Repack\\Translation\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.8-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

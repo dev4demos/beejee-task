@@ -1,0 +1,4 @@
+ 
+<input type="hidden" name="_method" value="POST">
+<input type="hidden" name="_token" value="{$app['csrf']->token()}">
+{ifset $id} <input type="hidden" name="id" value="{$id}"> {/ifset}

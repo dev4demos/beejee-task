@@ -1,0 +1,86 @@
+{layout '/app.latte'}
+
+{block title} {$_title ?: 'Application title'} {/block}
+
+{block content}
+    
+    <div class="row">
+        <div class="col-sm">
+            <form class="form-inline my-2 my-lg-0" method="POST">
+                <div class="input-group mb-3">
+                    <select class="form-control form-control-sm" name="sortBy">
+                        <option value="username">username</option>
+                        <option value="status">status</option>
+                        <option value="email">email</option>
+                    </select>
+                    <select class="form-control form-control-sm" name="sortOrder">
+                        <option value="ascending">ascending</option>
+                        <option value="descending">descending</option>
+                    </select>
+                    <span>&nbsp;&nbsp;</span>
+                    <div class="input-group-append">
+                        <button class="btn btn-dark btn-sm">sort</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-primary float-right" href="/tasks/create">Create task</a>
+        </div>&nbsp;
+    </div>
+    <!-- list -->
+    <div>
+        {foreach $items as $item}
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge badge-primary badge-pill">{$item->getKey()}</span>
+                    <span class="card-title">{$item->task_text}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item"><strong>{$app->trans('username')}:</strong></li>
+                        <li class="list-group-item">{$item->username}</li>
+                        <li class="list-group-item"><strong>{$app->trans('status')}:</strong></li>
+                        <li class="list-group-item">{$item->task_status}</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated by admin</small>
+                </div>
+            </div>
+            <br>
+        {/foreach}
+    </div>
+    <!-- pager -->
+    <nav aria-label="...">
+        <br>
+        <ul class="pagination float-right">
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+                <span class="page-link">
+                    2 <span class="sr-only">(current)</span>
+                </span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+
+	{* <h1>{$_title}</h1>
+    <form action="/tasks/destroy" method="POST">
+    	<input type="hidden" name="_method" value="delete" />
+
+        <div class="form-group">
+            <label>
+				<input type="text" name="id">
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </form> *}
+{/block}
