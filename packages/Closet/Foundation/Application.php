@@ -73,7 +73,15 @@ class Application extends Container implements ContainerInterface
             return $tree;
         };
 
-        $files = glob(trim($configPath, '\\/') . '/*.php');
+        $files = [];
+        if ($handle = opendir($configPath)) {
+            while (false !== ($entry = readdir($handle))) {
+                if ($entry != "." && $entry != "..") {
+                    $files[] = realpath($configPath . '/' . $entry);
+                }
+            }
+            closedir($handle);
+        }
 
         foreach ($files as $file) {
             $file = (string) $file;
