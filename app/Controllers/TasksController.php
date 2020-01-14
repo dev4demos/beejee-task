@@ -14,13 +14,7 @@ class TasksController extends AbstractController
 
         $sortBy = $this->request->input('sortBy', 'id');
 
-        $sortOrderQry = strtolower($this->request->input('sortOrder', $sortOrder = 'descending'));
-
-        if (substr($sortOrder, 0, 4) === 'desc') {
-            $sortOrder = 'desc';
-        } else {
-            $sortOrder = 'asc';
-        }
+        $sortOrder = strtolower($this->request->input('sortOrder', 'desc'));
 
         $items = Model::query();
 
@@ -29,7 +23,7 @@ class TasksController extends AbstractController
         }
 
         $items = $items->orderBy($sortBy, $sortOrder)->paginate($perPage)->appends(
-            array('sortBy' => $sortBy, 'sortOrder' => $sortOrderQry)
+            array(compact('sortBy', 'sortOrder'))
         );
 
         return $this->share(compact('items'))->viewMake(__FUNCTION__);

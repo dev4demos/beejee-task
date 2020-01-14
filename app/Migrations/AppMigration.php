@@ -34,7 +34,6 @@ class AppMigration extends Migration
             $table->nullableTimestamps();
 
             $table->engine = 'InnoDB';
-            $table->unique('task_text');
         });
 
         $schema->create('users', function (Blueprint $table) {

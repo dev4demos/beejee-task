@@ -1,6 +1,6 @@
 {
-	"ascending": "Ascending",
-	"descending": "Descending",
+	"asc": "Ascending",
+	"desc": "Descending",
 	"incomplete": "Incomplete",
 	"reviewing": "Reviewing",
 	"complete": "Complete",

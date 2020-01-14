@@ -15,7 +15,7 @@
                         {/foreach}
                     </select>
                     <select class="form-control form-control-sm" name="sortOrder">
-                        {foreach ['descending', 'ascending'] as $val}
+                        {foreach ['desc', 'asc'] as $val}
                             <option value="{$val}" {if $request->input('sortOrder') == $val } selected="selected" {/if} > 
                             {$app->trans($val)} 
                             </option>
