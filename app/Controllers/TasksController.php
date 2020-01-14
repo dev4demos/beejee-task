@@ -23,7 +23,7 @@ class TasksController extends AbstractController
         }
 
         $items = $items->orderBy($sortBy, $sortOrder)->paginate($perPage)->appends(
-            array(compact('sortBy', 'sortOrder'))
+            array('sortBy' => $sortBy, 'sortOrder' => $sortOrder)
         );
 
         return $this->share(compact('items'))->viewMake(__FUNCTION__);
